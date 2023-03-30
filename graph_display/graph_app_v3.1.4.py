@@ -1,3 +1,21 @@
+"""
+Main app that reconstructs invalid/missing dates from recorded power generated
+and consumed, split over daily, weekly and monthly intervals. Top 5 power consumption
+peaks can be read back over a monthly period. Overlay of difference between generated and 
+consumed.
+
+TODO: 
+1.Filter the datapoints of the overlay to be only over the timeframe when generated values 
+are positive - aka during daytime hours.
+2. Add option to overlay data from S-Miles (which samples are only 15min intervals.)
+3. Clean up the UI. 
+4. Add better error handling when data points are not in the correct format. (text inline) 
+5. Print the date next to the highest consumption peaks. 
+6. Convert the project to run in a browser on platform independant device.
+
+
+@author: Frans Boning (with help from Chase Meredith)
+"""
 import pandas as pd
 import matplotlib.pyplot as plt
 import matplotlib.dates as mdates
@@ -52,7 +70,7 @@ def show_graph(*args):
         start_date = (selected_date.replace(hour=6, minute=0)).strftime(
             "%Y-%m-%d %H:%M"
         )
-        print(f'start_date{type(start_date)}')
+        # print(f'start_date{type(start_date)}')
         end_date = (selected_date.replace(hour=18, minute=0)).strftime("%Y-%m-%d %H:%M")
 
         # create a boolean mask that selects the rows with dates between start and end dates
@@ -61,8 +79,8 @@ def show_graph(*args):
         )
 
         # filter out the rows that meet the condition using the boolean mask
-        solar_production_times = filtered_df #df.loc[mask]
-        #print(f"{solar_production_times}")
+        solar_production_times = filtered_df  # df.loc[mask]
+        # print(f"{solar_production_times}")
         ax.plot(
             solar_production_times["current_date_time"],
             solar_production_times["current_power_consumed"]

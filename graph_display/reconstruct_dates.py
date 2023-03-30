@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 """
 Script to reconstruct invalid/missing dates from recorded power gen + consump
-@author: CyRiX
+@author: Frans Boning (with help from Chase Meredith)
 """
 import tkinter as tk
 from tkinter import filedialog
